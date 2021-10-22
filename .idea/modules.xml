@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/community-backend.iml" filepath="$PROJECT_DIR$/community-backend.iml" />
+      <module fileurl="file://$PROJECT_DIR$/community-forum/community-forum.iml" filepath="$PROJECT_DIR$/community-forum/community-forum.iml" />
+      <module fileurl="file://$PROJECT_DIR$/community-logging/community-logging.iml" filepath="$PROJECT_DIR$/community-logging/community-logging.iml" />
+    </modules>
+  </component>
+</project>
