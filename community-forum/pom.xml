@@ -6,11 +6,13 @@
         <artifactId>community_backend</artifactId>
         <groupId>com.team3</groupId>
         <version>0.0.1-SNAPSHOT</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <properties>
-
     </properties>
+    <packaging>jar</packaging>
+
 
     <artifactId>community-forum</artifactId>
     <name>论坛模块</name>
@@ -34,6 +36,16 @@
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.5.6</version>
+            </plugin>
+        </plugins>
+    </build>
 </project>
 
 
