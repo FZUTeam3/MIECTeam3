@@ -6,17 +6,20 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.cjh.mapper.ArticleDetailsMapper;
 import com.example.cjh.mapper.ArticleMapper;
-import com.example.cjh.mapper.UserMapper;
+import com.example.cjh.mapper.ArticleThumbMapper;
 import com.example.cjh.pojo.Article;
 import com.example.cjh.pojo.ArticleDetails;
-import com.example.cjh.pojo.User;
+import com.example.cjh.pojo.ArticleThumb;
 import com.example.cjh.service.ArticleService;
+import com.example.cjh.uitls.UserThreadLocal;
 import com.example.cjh.vo.ArticleDetailsVo;
 import com.example.cjh.vo.ArticleVo;
 import com.example.cjh.vo.Result;
 import com.example.cjh.vo.param.ArticleParams;
 import com.example.cjh.vo.param.PageParams;
 import com.example.cjh.vo.param.SearchParams;
+import com.example.csl.bean.FsUser;
+import com.example.csl.mapper.FsUserMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,21 +35,26 @@ public class ArticleServiceImp implements ArticleService {
     @Autowired
     ArticleMapper articleMapper;
     @Autowired
-    UserMapper userMapper;
+    FsUserMapper fsUserMapper;
     @Autowired
     ArticleDetailsMapper articleDetailsMapper;
+    @Autowired
+    ArticleThumbMapper articleThumbMapper;
 
     @Override
     @Transactional
     public Result publish(ArticleParams articleParams) {
         //_______插入文章__________
+        FsUser fsUser = UserThreadLocal.get();
+        int userId = Math.toIntExact(fsUser.getUserId());
         Article article = new Article();
         article.setCategoryId(articleParams.getCategoryId());
         article.setSummary(articleParams.getSummary());
         article.setTitle(articleParams.getTittle());
-        article.setUserId(articleParams.getUserId());
+        article.setUserId(userId);
         article.setViewsCount(0);
         article.setCommentsCount(0);
+        article.setThumbCount(0);
         article.setCreateDate(System.currentTimeMillis());
         article.setWeight(Article.Article_Common);
         articleMapper.insert(article);
@@ -64,6 +72,7 @@ public class ArticleServiceImp implements ArticleService {
         queryWrapper.eq("category_id", pageParams.getCategoryId());
         Page<Article> page = new Page<>(pageParams.getPage(), pageParams.getPageSize());
         IPage<Article> articlePage = articleMapper.selectPage(page, queryWrapper);
+        System.out.println(articlePage.getRecords().toString());
         List<ArticleVo> articleVos = copyList(articlePage.getRecords());
         return articleVos;
     }
@@ -85,25 +94,31 @@ public class ArticleServiceImp implements ArticleService {
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", articleId);
         Article article = articleMapper.selectOne(queryWrapper);
-       //查询文章后浏览量增加
+        //查询文章后浏览量增加
         LambdaUpdateWrapper<Article> lambdaUpdateWrapper = new LambdaUpdateWrapper<>();
         int viewsCount = article.getViewsCount();
-        article.setViewsCount(viewsCount+1);
-        lambdaUpdateWrapper.eq(Article::getArticleId,article.getArticleId());
-        articleMapper.update(article,lambdaUpdateWrapper);
+        article.setViewsCount(viewsCount + 1);
+        lambdaUpdateWrapper.eq(Article::getArticleId, article.getArticleId());
+        articleMapper.update(article, lambdaUpdateWrapper);
         return copy(article);
     }
-
 
 
     //______转换到vo________________
     public ArticleVo copy(Article article) {
         ArticleVo articleVo = new ArticleVo();
         int userId = article.getUserId();
-        User user = userMapper.selectById(userId);
-        String userName = user.getNickname();
+        FsUser fsUser = fsUserMapper.selectById(userId);
+        String userName = fsUser.getNickname();
         BeanUtils.copyProperties(article, articleVo);
         articleVo.setUsername(userName);
+        QueryWrapper<ArticleThumb> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("article_id", article.getArticleId());
+        queryWrapper.eq("user_id", article.getUserId());
+
+        if (articleThumbMapper.selectCount(queryWrapper) == 1) {
+            articleVo.setIfIsThumb(true);
+        }
         return articleVo;
     }
 
@@ -117,14 +132,13 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public Result search(SearchParams searchParams) {
-        QueryWrapper<Article> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("category_id",searchParams.getCategoryId());
-        queryWrapper.like("title",searchParams.getTitle());
+        QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("category_id", searchParams.getCategoryId());
+        queryWrapper.like("title", searchParams.getTitle());
         Page<Article> page = new Page<>(searchParams.getPage(), searchParams.getPageSize());
-        IPage<Article> articleIPage=articleMapper.selectPage(page,queryWrapper);
+        IPage<Article> articleIPage = articleMapper.selectPage(page, queryWrapper);
         return Result.success(copyList(articleIPage.getRecords()));
     }
-
 
 
 }

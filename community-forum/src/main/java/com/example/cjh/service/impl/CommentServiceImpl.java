@@ -4,13 +4,15 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.example.cjh.mapper.ArticleMapper;
 import com.example.cjh.mapper.CommentsMapper;
-import com.example.cjh.mapper.UserMapper;
 import com.example.cjh.pojo.Article;
 import com.example.cjh.pojo.Comments;
 import com.example.cjh.service.CommentService;
+import com.example.cjh.uitls.UserThreadLocal;
 import com.example.cjh.vo.CommentVo;
 import com.example.cjh.vo.Result;
 import com.example.cjh.vo.param.CommentsParams;
+import com.example.csl.bean.FsUser;
+import com.example.csl.mapper.FsUserMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +26,7 @@ public class CommentServiceImpl implements CommentService {
     @Autowired
     CommentsMapper commentsMapper;
     @Autowired
-    UserMapper userMapper;
+    FsUserMapper fsUserMapper;
     @Autowired
     ArticleMapper articleMapper;
 
@@ -40,7 +42,11 @@ public class CommentServiceImpl implements CommentService {
     @Transactional
     public Result publishComment(CommentsParams commentsParams) {
         Comments comments = new Comments();
+        //获取当前id
+        FsUser fsUser = UserThreadLocal.get();
+        int userId = Math.toIntExact(fsUser.getUserId());
         BeanUtils.copyProperties(commentsParams, comments);
+        comments.setUserId(userId);
         comments.setCreateDate(System.currentTimeMillis());
         commentsMapper.insert(comments);
         //更新评论数
@@ -59,7 +65,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentVo copy(Comments comments) {
         CommentVo commentVo = new CommentVo();
         BeanUtils.copyProperties(comments, commentVo);
-        String username = userMapper.selectById(comments.getUserId()).getNickname();
+        String username = fsUserMapper.selectById(comments.getUserId()).getNickname();
         commentVo.setUserName(username);
         return commentVo;
     }

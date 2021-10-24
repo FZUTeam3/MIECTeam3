@@ -1,10 +1,10 @@
 package com.example.cjh.vo;
 
+import io.swagger.annotations.ApiModel;
 import lombok.Data;
-
+@ApiModel(value = "文章概括",description = "包含文章的标题简介等信息")
 @Data
 public class ArticleVo {
-
     private Integer articleId ;
     /** 标题 */
     private String title ;
@@ -20,4 +20,8 @@ public class ArticleVo {
     private Integer categoryId ;
     /** 概述 */
     private String summary;
+    /** 点赞数 */
+    private Integer thumbCount;
+    /** 当前用户是否点赞了 */
+    private boolean ifIsThumb;
 }

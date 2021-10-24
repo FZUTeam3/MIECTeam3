@@ -11,7 +11,7 @@ import java.time.LocalDate;
 
 
 @Data
-public class fsUser {
+public class FsUser {
 
     @TableId(type = IdType.AUTO)
     private Long userId;
