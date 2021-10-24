@@ -11,8 +11,6 @@ import lombok.Data;
 public class Article {
     public static final int Article_TOP = 1;
     public static final int Article_Common = 0;
-
-
     @TableId(type = IdType.AUTO)
     private Integer articleId ;
     /** 标题 */
@@ -31,5 +29,8 @@ public class Article {
     private String summary;
     /** 创建时间 */
     private Long createDate;
+    /** 点赞数 */
+    private Integer thumbCount;
+
 
 }
