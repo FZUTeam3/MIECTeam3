@@ -7,4 +7,5 @@ public class Result {
 
     private int status=1;
     private String message="Successful";
+    private String token = null;
 }
