@@ -24,4 +24,6 @@ public class ArticleVo {
     private Integer thumbCount;
     /** 当前用户是否点赞了 */
     private boolean ifIsThumb;
+    /** 创建时间 */
+    private Long createDate;
 }

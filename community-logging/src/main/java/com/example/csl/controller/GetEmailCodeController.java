@@ -30,7 +30,7 @@ public class GetEmailCodeController {
 
 
     //发送普通文本邮件
-    @PostMapping(value = "/email")
+    @PostMapping(value = "/user/email")
     public Result sendMail(String email) {
 
         if (redisService.getValue(email)!=null){

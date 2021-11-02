@@ -6,6 +6,7 @@ import cn.hutool.crypto.SecureUtil;
 import com.example.csl.Service.Impl.RedisServiceImpl;
 import com.example.csl.Service.fsUserService;
 import com.example.csl.bean.FsUser;
+import com.example.csl.config.JwtConfig;
 import com.example.csl.mapper.FsUserMapper;
 import com.example.csl.result.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,26 +19,37 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Date;
 
 
 @RestController
-public class fsUserController {
+public class FsUserController {
 
     @Resource
     private fsUserService userService;
 
     @Resource
     private RedisServiceImpl redisService;
+
+    @Resource
+    JwtConfig jwtConfig;
+
     @Autowired
     private FsUserMapper fsUserMapper1;
 
     @GetMapping(value = "/test")
-    public void test() {
-        userService.update(1L);
+    public String test() {
+        String a = jwtConfig.createToken("123456");
+        //System.out.println(jwtConfig.getExpirationDateFromToken(a));
+        //System.out.println(jwtConfig.getIssuedAtDateFromToken(a));
+        String b = "生成token: "+a+"\n获取token失效时间:"+jwtConfig.getExpirationDateFromToken(a)+"\n获取token中注册信息:"+jwtConfig.getTokenClaim(a);
+        return b;
+
     }
 
 
-    @PostMapping(value = "/register")
+    @PostMapping(value = "/user/register")
     public Result register(@RequestBody @Valid FsUser user, BindingResult results) throws IOException {
 
         Result result = new Result();
@@ -62,7 +74,7 @@ public class fsUserController {
         return result;
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/user/login")
     public Result login(@RequestBody FsUser user) {
         Result result = new Result();
         String email = user.getEmail();
@@ -71,7 +83,10 @@ public class fsUserController {
         if (userId == null) {
             result.setStatus(0);
             result.setMessage("The email and password are incorrect.");
+            return result;
         }
+        String token = jwtConfig.createToken(userId.toString());
+        result.setToken(token);
         return result;
     }
 }

@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 
 @Service
-public class fsUserServiceImpl implements fsUserService {
+public class FsUserServiceImpl implements fsUserService {
 
     @Resource
     private FsUserMapper fsUserMapper;
@@ -39,7 +39,7 @@ public class fsUserServiceImpl implements fsUserService {
 
     @Override
     public Long loginUser(String phone, String password) {
-        return fsUserMapper.loginUser(phone,password);
+        return fsUserMapper.loginUser(phone, password);
     }
 
     @Override
@@ -49,9 +49,9 @@ public class fsUserServiceImpl implements fsUserService {
         user.setStatus(true);
         user.setLastLogin(LocalDate.now());
 
-         UpdateWrapper<FsUser> updateWrapper = new UpdateWrapper<>();
+        UpdateWrapper<FsUser> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("user_id", userId);
-        fsUserMapper.update(user,updateWrapper);
+        fsUserMapper.update(user, updateWrapper);
 
     }
 

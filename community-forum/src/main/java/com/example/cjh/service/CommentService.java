@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CommentService {
    List<CommentVo> findByArticleId(int articleId);
-   Result publishComment(CommentsParams commentsParams);
+   Result publishComment(CommentsParams commentsParams,int userId);
 }

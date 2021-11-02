@@ -10,7 +10,10 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @SuppressWarnings("all")
@@ -20,31 +23,47 @@ import java.util.List;
 public class ArticleController {
     @Autowired
     ArticleService articleService;
-    @ApiOperation(value="获取当前分类的所有文章概述")
+
+    @ApiOperation(value = "获取当前分类的所有文章概述")
     @PostMapping("listAll")
     public Result getArticles(@RequestBody PageParams pageParams) {
-        List<ArticleVo> articleVos = articleService.getArticles(pageParams);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String identityId = (String) request.getAttribute("identityId");
+        int lookId=Integer.parseInt(identityId);
+        List<ArticleVo> articleVos = articleService.getArticles(pageParams, lookId);
         return Result.success(articleVos);
     }
-    @ApiOperation(value="获取文章正文")
+    @ApiOperation(value = "获取文章正文")
     @GetMapping("findArticleDetails/{articleId}")
     public Result findDetailsByArticleId(@PathVariable("articleId") int articleId) {
         return Result.success(articleService.findDetailsByArticleId(articleId));
     }
-    @ApiOperation(value="根据id查文章")
+
+    @ApiOperation(value = "根据id查文章")
     @GetMapping("findArticle/{articleId}")
     public Result findArticleByArticleId(@PathVariable("articleId") int articleId) {
-        return Result.success(articleService.findArticleByArticleId(articleId));
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String identityId = (String) request.getAttribute("identityId");
+        int lookId=Integer.parseInt(identityId);
+        return Result.success(articleService.findArticleByArticleId(articleId, lookId));
     }
-    @ApiOperation(value="发布文章")
+
+    @ApiOperation(value = "发布文章")
     @PostMapping("publish")
     public Result publishArticle(@RequestBody ArticleParams articleParams) {
-        return articleService.publish(articleParams);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String identityId = (String) request.getAttribute("identityId");
+        int userId = Integer.parseInt(identityId);
+        return articleService.publish(articleParams, userId);
     }
-    @ApiOperation(value="搜索功能")
+
+    @ApiOperation(value = "搜索功能")
     @PostMapping("search")
     public Result searchByKeywords(@RequestBody SearchParams searchParams) {
-        return articleService.search(searchParams);
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String identityId = (String) request.getAttribute("identityId");
+        int lookId=Integer.parseInt(identityId);
+        return articleService.search(searchParams, lookId);
     }
 
 }
