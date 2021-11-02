@@ -11,7 +11,7 @@ import com.example.cjh.pojo.Article;
 import com.example.cjh.pojo.ArticleDetails;
 import com.example.cjh.pojo.ArticleThumb;
 import com.example.cjh.service.ArticleService;
-import com.example.cjh.uitls.UserThreadLocal;
+import com.example.csl.Utils.UserThreadLocal;
 import com.example.cjh.vo.ArticleDetailsVo;
 import com.example.cjh.vo.ArticleVo;
 import com.example.cjh.vo.Result;
@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,10 +44,7 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     @Transactional
-    public Result publish(ArticleParams articleParams) {
-        //_______插入文章__________
-        FsUser fsUser = UserThreadLocal.get();
-        int userId = Math.toIntExact(fsUser.getUserId());
+    public Result publish(ArticleParams articleParams, int userId) {
         Article article = new Article();
         article.setCategoryId(articleParams.getCategoryId());
         article.setSummary(articleParams.getSummary());
@@ -67,13 +65,13 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
-    public List<ArticleVo> getArticles(PageParams pageParams) {
+    public List<ArticleVo> getArticles(PageParams pageParams, int lookId) {
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("category_id", pageParams.getCategoryId());
         Page<Article> page = new Page<>(pageParams.getPage(), pageParams.getPageSize());
         IPage<Article> articlePage = articleMapper.selectPage(page, queryWrapper);
         System.out.println(articlePage.getRecords().toString());
-        List<ArticleVo> articleVos = copyList(articlePage.getRecords());
+        List<ArticleVo> articleVos = copyList(articlePage.getRecords(), lookId);
         return articleVos;
     }
 
@@ -90,7 +88,7 @@ public class ArticleServiceImp implements ArticleService {
     }
 
     @Override
-    public ArticleVo findArticleByArticleId(int articleId) {
+    public ArticleVo findArticleByArticleId(int articleId, int lookId) {
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", articleId);
         Article article = articleMapper.selectOne(queryWrapper);
@@ -100,12 +98,12 @@ public class ArticleServiceImp implements ArticleService {
         article.setViewsCount(viewsCount + 1);
         lambdaUpdateWrapper.eq(Article::getArticleId, article.getArticleId());
         articleMapper.update(article, lambdaUpdateWrapper);
-        return copy(article);
+        return copy(article, lookId);
     }
 
 
     //______转换到vo________________
-    public ArticleVo copy(Article article) {
+    public ArticleVo copy(Article article, int lookId) {
         ArticleVo articleVo = new ArticleVo();
         int userId = article.getUserId();
         FsUser fsUser = fsUserMapper.selectById(userId);
@@ -114,30 +112,31 @@ public class ArticleServiceImp implements ArticleService {
         articleVo.setUsername(userName);
         QueryWrapper<ArticleThumb> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", article.getArticleId());
-        queryWrapper.eq("user_id", article.getUserId());
-
+        queryWrapper.eq("user_id", lookId);
         if (articleThumbMapper.selectCount(queryWrapper) == 1) {
             articleVo.setIfIsThumb(true);
+        }else {
+            articleVo.setIfIsThumb(false);
         }
         return articleVo;
     }
 
-    public List<ArticleVo> copyList(List<Article> articles) {
+    public List<ArticleVo> copyList(List<Article> articles, int lookid) {
         List<ArticleVo> articleVos = new ArrayList<>();
         for (Article article : articles) {
-            articleVos.add(copy(article));
+            articleVos.add(copy(article, lookid));
         }
         return articleVos;
     }
 
     @Override
-    public Result search(SearchParams searchParams) {
+    public Result search(SearchParams searchParams, int lookId) {
         QueryWrapper<Article> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("category_id", searchParams.getCategoryId());
         queryWrapper.like("title", searchParams.getTitle());
         Page<Article> page = new Page<>(searchParams.getPage(), searchParams.getPageSize());
         IPage<Article> articleIPage = articleMapper.selectPage(page, queryWrapper);
-        return Result.success(copyList(articleIPage.getRecords()));
+        return Result.success(copyList(articleIPage.getRecords(), lookId));
     }
 
 

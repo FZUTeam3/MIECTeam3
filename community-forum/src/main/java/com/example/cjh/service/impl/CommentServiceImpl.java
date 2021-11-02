@@ -7,7 +7,7 @@ import com.example.cjh.mapper.CommentsMapper;
 import com.example.cjh.pojo.Article;
 import com.example.cjh.pojo.Comments;
 import com.example.cjh.service.CommentService;
-import com.example.cjh.uitls.UserThreadLocal;
+import com.example.csl.Utils.UserThreadLocal;
 import com.example.cjh.vo.CommentVo;
 import com.example.cjh.vo.Result;
 import com.example.cjh.vo.param.CommentsParams;
@@ -40,11 +40,10 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     @Transactional
-    public Result publishComment(CommentsParams commentsParams) {
+    public Result publishComment(CommentsParams commentsParams,int userId) {
         Comments comments = new Comments();
         //获取当前id
         FsUser fsUser = UserThreadLocal.get();
-        int userId = Math.toIntExact(fsUser.getUserId());
         BeanUtils.copyProperties(commentsParams, comments);
         comments.setUserId(userId);
         comments.setCreateDate(System.currentTimeMillis());

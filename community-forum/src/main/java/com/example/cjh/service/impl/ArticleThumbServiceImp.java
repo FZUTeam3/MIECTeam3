@@ -5,7 +5,7 @@ import com.example.cjh.service.ArticleThumbService;
 import com.example.cjh.uitls.ThumbStatusEnum;
 import com.example.cjh.uitls.ThumbUtils;
 import com.example.cjh.vo.Result;
-import com.example.cjh.uitls.UserThreadLocal;
+import com.example.csl.Utils.UserThreadLocal;
 import com.example.csl.bean.FsUser;
 import com.example.csl.mapper.FsUserMapper;
 import org.springframework.beans.factory.annotation.Autowired;

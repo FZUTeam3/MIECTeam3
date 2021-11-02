@@ -12,13 +12,13 @@ import java.util.List;
 public interface ArticleService {
 
 
-    Result publish(ArticleParams articleParams);
+    Result publish(ArticleParams articleParams,int userId);
 
-    List<ArticleVo> getArticles(PageParams pageParams);
+    List<ArticleVo> getArticles(PageParams pageParams,int lookId);
 
     ArticleDetailsVo findDetailsByArticleId(int articleId);
 
-    ArticleVo findArticleByArticleId(int articleId);
+    ArticleVo findArticleByArticleId(int articleId,int lookId);
 
-    Result search(SearchParams searchParams);
+    Result search(SearchParams searchParams,int lookID);
 }

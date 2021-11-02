@@ -24,7 +24,7 @@ import java.util.Date;
 
 
 @RestController
-public class fsUserController {
+public class FsUserController {
 
     @Resource
     private fsUserService userService;
