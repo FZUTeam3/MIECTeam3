@@ -4,6 +4,7 @@ import com.example.cjh.vo.ArticleVo;
 import com.example.cjh.vo.Result;
 import com.example.cjh.vo.param.ArticleParams;
 import com.example.cjh.vo.param.PageParams;
+import com.example.cjh.vo.param.ReportParam;
 import com.example.cjh.vo.param.SearchParams;
 import com.example.cjh.service.ArticleService;
 import io.swagger.annotations.Api;
@@ -64,6 +65,15 @@ public class ArticleController {
         String identityId = (String) request.getAttribute("identityId");
         int lookId=Integer.parseInt(identityId);
         return articleService.search(searchParams, lookId);
+    }
+
+    @ApiOperation(value = "举报文章" )
+    @PostMapping("report")
+    public Result reportThisArticle(@RequestBody ReportParam reportParam){
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String identityId = (String) request.getAttribute("identityId");
+        int userId=Integer.parseInt(identityId);
+        return articleService.report(reportParam,userId);
     }
 
 }

@@ -1,11 +1,11 @@
-com\example\csl\controller\GetEmailCodeController.class
-com\example\csl\mapper\fsUserMapper.class
+com\example\csl\bean\FsUser.class
 com\example\csl\Service\Impl\RedisServiceImpl.class
-com\example\csl\bean\fsUser.class
+com\example\csl\mapper\FsUserMapper.class
 com\example\csl\Service\IRedisService.class
-com\example\csl\Service\Impl\fsUserServiceImpl.class
-com\example\csl\Utils\IdentifyCodeUtil.class
-com\example\csl\controller\fsUserController.class
+com\example\csl\Service\Impl\FsUserServiceImpl.class
 com\example\csl\config\RedisConfig.class
 com\example\csl\result\Result.class
 com\example\csl\Service\fsUserService.class
+com\example\csl\controller\FsUserController.class
+com\example\csl\controller\GetEmailCodeController.class
+com\example\csl\Utils\IdentifyCodeUtil.class

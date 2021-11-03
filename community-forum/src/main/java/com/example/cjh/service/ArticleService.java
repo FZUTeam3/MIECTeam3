@@ -5,6 +5,7 @@ import com.example.cjh.vo.ArticleVo;
 import com.example.cjh.vo.Result;
 import com.example.cjh.vo.param.ArticleParams;
 import com.example.cjh.vo.param.PageParams;
+import com.example.cjh.vo.param.ReportParam;
 import com.example.cjh.vo.param.SearchParams;
 
 import java.util.List;
@@ -21,4 +22,6 @@ public interface ArticleService {
     ArticleVo findArticleByArticleId(int articleId,int lookId);
 
     Result search(SearchParams searchParams,int lookID);
+
+    Result report(ReportParam reportParam, int userId);
 }

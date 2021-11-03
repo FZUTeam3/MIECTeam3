@@ -13,11 +13,9 @@ com\example\cjh\pojo\Article.class
 com\example\cjh\vo\param\ArticleParams.class
 com\example\cjh\vo\param\CommentsParams.class
 com\example\cjh\mapper\CommentsMapper.class
-com\example\cjh\mapper\UserMapper.class
 com\example\cjh\controller\CommentController.class
 com\example\cjh\pojo\Comments.class
 com\example\cjh\service\CommentService.class
-com\example\cjh\pojo\User.class
 com\example\cjh\service\impl\CommentServiceImpl.class
 com\example\cjh\controller\ArticleController.class
 com\example\cjh\service\impl\ArticleServiceImp.class

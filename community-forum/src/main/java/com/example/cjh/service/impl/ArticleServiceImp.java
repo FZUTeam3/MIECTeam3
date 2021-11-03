@@ -6,11 +6,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.cjh.mapper.ArticleDetailsMapper;
 import com.example.cjh.mapper.ArticleMapper;
+import com.example.cjh.mapper.ArticleReportMapper;
 import com.example.cjh.mapper.ArticleThumbMapper;
 import com.example.cjh.pojo.Article;
 import com.example.cjh.pojo.ArticleDetails;
+import com.example.cjh.pojo.ArticleReport;
 import com.example.cjh.pojo.ArticleThumb;
 import com.example.cjh.service.ArticleService;
+import com.example.cjh.vo.param.ReportParam;
 import com.example.csl.Utils.UserThreadLocal;
 import com.example.cjh.vo.ArticleDetailsVo;
 import com.example.cjh.vo.ArticleVo;
@@ -41,6 +44,8 @@ public class ArticleServiceImp implements ArticleService {
     ArticleDetailsMapper articleDetailsMapper;
     @Autowired
     ArticleThumbMapper articleThumbMapper;
+    @Autowired
+    ArticleReportMapper articleReportMapper;
 
     @Override
     @Transactional
@@ -115,7 +120,7 @@ public class ArticleServiceImp implements ArticleService {
         queryWrapper.eq("user_id", lookId);
         if (articleThumbMapper.selectCount(queryWrapper) == 1) {
             articleVo.setIfIsThumb(true);
-        }else {
+        } else {
             articleVo.setIfIsThumb(false);
         }
         return articleVo;
@@ -137,6 +142,23 @@ public class ArticleServiceImp implements ArticleService {
         Page<Article> page = new Page<>(searchParams.getPage(), searchParams.getPageSize());
         IPage<Article> articleIPage = articleMapper.selectPage(page, queryWrapper);
         return Result.success(copyList(articleIPage.getRecords(), lookId));
+    }
+
+    @Override
+    public Result report(ReportParam reportParam, int userId) {
+        QueryWrapper<ArticleReport> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("user_id", userId);
+        queryWrapper.eq("article_id", reportParam.getArticleId());
+        ArticleReport articleReport1 = articleReportMapper.selectOne(queryWrapper);
+        if (articleReport1 != null) {
+            return Result.fail(404, "你已经举报过此文章了");
+        }
+        ArticleReport articleReport = new ArticleReport();
+        articleReport.setUser_id(userId);
+        articleReport.setArticleId(reportParam.getArticleId());
+        articleReport.setReason(reportParam.getReason());
+        articleReportMapper.insert(articleReport);
+        return Result.success("举报成功");
     }
 
 
