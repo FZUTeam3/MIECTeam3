@@ -3,8 +3,8 @@ package com.example.csl.controller;
 
 import cn.hutool.crypto.SecureUtil;
 
-import com.example.csl.Service.Impl.RedisServiceImpl;
-import com.example.csl.Service.fsUserService;
+import com.example.csl.service.Impl.RedisServiceImpl;
+import com.example.csl.service.FsUserService;
 import com.example.csl.bean.FsUser;
 import com.example.csl.config.JwtConfig;
 import com.example.csl.mapper.FsUserMapper;
@@ -19,15 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Date;
 
 
 @RestController
-public class fsUserController {
+public class FsUserController {
 
     @Resource
-    private fsUserService userService;
+    private FsUserService userService;
 
     @Resource
     private RedisServiceImpl redisService;

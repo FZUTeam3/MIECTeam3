@@ -1,7 +1,7 @@
-package com.example.csl.Service.Impl;
+package com.example.csl.service.Impl;
 
 
-import com.example.csl.Service.IRedisService;
+import com.example.csl.service.IRedisService;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Service;
 

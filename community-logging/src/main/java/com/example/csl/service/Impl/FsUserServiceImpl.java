@@ -1,8 +1,8 @@
-package com.example.csl.Service.Impl;
+package com.example.csl.service.Impl;
 
 import cn.hutool.crypto.SecureUtil;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
-import com.example.csl.Service.fsUserService;
+import com.example.csl.service.FsUserService;
 import com.example.csl.bean.FsUser;
 import com.example.csl.mapper.FsUserMapper;
 import org.springframework.stereotype.Service;
@@ -11,7 +11,7 @@ import javax.annotation.Resource;
 import java.time.LocalDate;
 
 @Service
-public class fsUserServiceImpl implements fsUserService {
+public class FsUserServiceImpl implements FsUserService {
 
     @Resource
     private FsUserMapper fsUserMapper;

@@ -1,4 +1,4 @@
-package com.example.csl.Utils;
+package com.example.csl.utils;
 
 public class IdentifyCodeUtil {
 

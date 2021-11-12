@@ -1,7 +1,6 @@
-package com.example.csl.Interceptor;
+package com.example.csl.interceptor;
 
 import com.example.csl.config.JwtConfig;
-import com.example.csl.result.Result;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.SignatureException;
 import org.springframework.stereotype.Component;

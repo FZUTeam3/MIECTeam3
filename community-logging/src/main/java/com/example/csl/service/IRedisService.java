@@ -1,4 +1,4 @@
-package com.example.csl.Service;
+package com.example.csl.service;
 
 public interface IRedisService {
 
