@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/community-backend.iml" filepath="$PROJECT_DIR$/community-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/community-forum/community-forum.iml" filepath="$PROJECT_DIR$/community-forum/community-forum.iml" />
       <module fileurl="file://$PROJECT_DIR$/community-logging/community-logging.iml" filepath="$PROJECT_DIR$/community-logging/community-logging.iml" />
+      <module fileurl="file://$PROJECT_DIR$/maganement-outgoing/maganement-outgoing.iml" filepath="$PROJECT_DIR$/maganement-outgoing/maganement-outgoing.iml" />
     </modules>
   </component>
 </project>
