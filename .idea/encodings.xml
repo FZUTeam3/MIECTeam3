@@ -4,5 +4,6 @@
     <file url="file://$PROJECT_DIR$/community-forum/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/community-forum/src/main/resources" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/community-logging/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/community-signin/src/main/java" charset="UTF-8" />
   </component>
 </project>

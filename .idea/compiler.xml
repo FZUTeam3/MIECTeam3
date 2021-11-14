@@ -9,12 +9,14 @@
         <outputRelativeToContentRoot value="true" />
         <module name="community-forum" />
         <module name="community-logging" />
+        <module name="community-signin" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="community-backend" target="11" />
       <module name="community-forum" target="11" />
       <module name="community-logging" target="11" />
+      <module name="community-signin" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -22,6 +24,7 @@
       <module name="community-backend" options="-parameters" />
       <module name="community-forum" options="-parameters" />
       <module name="community-logging" options="-parameters" />
+      <module name="community-signin" options="-parameters" />
     </option>
   </component>
 </project>

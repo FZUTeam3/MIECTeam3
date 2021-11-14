@@ -1,8 +1,0 @@
-com\example\cjh\service\impl\SignInServiceImpl.class
-com\example\cjh\vo\Result.class
-com\example\cjh\pojo\SignIn.class
-com\example\cjh\controller\SignInController.class
-com\example\cjh\utils\JudgeIfIn.class
-com\example\cjh\mapper\SignInMapper.class
-com\example\cjh\service\SignInService.class
-com\example\cjh\vo\param\SignInParam.class
