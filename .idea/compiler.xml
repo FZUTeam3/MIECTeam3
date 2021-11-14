@@ -10,12 +10,14 @@
         <module name="community-forum" />
         <module name="community-logging" />
         <module name="community-signin" />
+        <module name="maganement-outgoing" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="community-backend" target="11" />
       <module name="community-forum" target="11" />
       <module name="community-logging" target="11" />
+      <module name="maganement-outgoing" target="11" />
       <module name="community-signin" target="11" />
     </bytecodeTargetLevel>
   </component>
@@ -25,6 +27,7 @@
       <module name="community-forum" options="-parameters" />
       <module name="community-logging" options="-parameters" />
       <module name="community-signin" options="-parameters" />
+      <module name="maganement-outgoing" options="-parameters" />
     </option>
   </component>
 </project>

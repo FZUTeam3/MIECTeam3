@@ -13,6 +13,7 @@
         <module>community-forum</module>
         <module>community-logging</module>
         <module>community-signin</module>
+        <module>maganement-outgoing</module>
     </modules>
 
 
