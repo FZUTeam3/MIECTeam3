@@ -14,7 +14,6 @@ import com.example.cjh.pojo.ArticleReport;
 import com.example.cjh.pojo.ArticleThumb;
 import com.example.cjh.service.ArticleService;
 import com.example.cjh.vo.param.ReportParam;
-import com.example.csl.Utils.UserThreadLocal;
 import com.example.cjh.vo.ArticleDetailsVo;
 import com.example.cjh.vo.ArticleVo;
 import com.example.cjh.vo.Result;

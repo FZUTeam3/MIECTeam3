@@ -29,13 +29,13 @@ public class Redis2MysqlTaskHandler {
 
     @Scheduled(cron = "0/10 * * * * ?")
     public void redis2Mysql() {
-        log.info("数据正在从redis转入mysql");
+//        log.info("数据正在从redis转入mysql");
         Map<String, String> entries = redisTemplate.boundHashOps(ThumbUtils.Key_Thumb).entries();
         HashSet<Integer> updateArticleId = new HashSet<>();
         redisTemplate.delete(ThumbUtils.Key_Thumb);
         ArticleThumb articleThumb = new ArticleThumb();
         if (entries.isEmpty()) {
-            log.info("无需转入mysql,因为redis里是空的");
+//            log.info("无需转入mysql,因为redis里是空的");
         } else {
             for (String key : entries.keySet()) {
                 int index = key.indexOf(":");
@@ -61,7 +61,7 @@ public class Redis2MysqlTaskHandler {
 //            System.out.println(articleId);
 //            System.out.println(userId);
             }
-            log.info("数据转入成功,并成功清除当前redis");
+//            log.info("数据转入成功,并成功清除当前redis");
             //更新文章的点赞量
             for (int updateId : updateArticleId) {
                 QueryWrapper queryWrapper = new QueryWrapper();
@@ -72,7 +72,7 @@ public class Redis2MysqlTaskHandler {
                 article.setThumbCount(thumbCountsNew);
                 articleMapper.updateById(article);
             }
-            log.info("更新文章点赞数完成");
+//            log.info("更新文章点赞数完成");
 
         }
     }
