@@ -8,8 +8,8 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="community-forum" />
-        <module name="community-logging" />
         <module name="community-signin" />
+        <module name="community-logging" />
         <module name="maganement-outgoing" />
       </profile>
     </annotationProcessing>
@@ -17,8 +17,8 @@
       <module name="community-backend" target="11" />
       <module name="community-forum" target="11" />
       <module name="community-logging" target="11" />
-      <module name="maganement-outgoing" target="11" />
       <module name="community-signin" target="11" />
+      <module name="maganement-outgoing" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
