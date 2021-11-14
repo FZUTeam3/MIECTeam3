@@ -5,7 +5,7 @@ import com.example.csl.bean.FsUser;
 
 import java.io.IOException;
 
-public interface FsUserService {
+public interface fsUserService {
     void createUser(FsUser user) throws IOException;
     Long findEmail(String email);
     Long loginUser(String phone,String password);
