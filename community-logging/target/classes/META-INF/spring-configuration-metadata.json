@@ -10,8 +10,7 @@
     {
       "name": "config.jwt.expire",
       "type": "java.lang.Long",
-      "sourceType": "com.example.csl.config.JwtConfig",
-      "defaultValue": 0
+      "sourceType": "com.example.csl.config.JwtConfig"
     },
     {
       "name": "config.jwt.header",
