@@ -25,6 +25,7 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="community-logging" />
     <orderEntry type="library" name="Maven: com.team3:community-signin:0.0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-annotation:3.4.2" level="project" />
     <orderEntry type="library" name="Maven: cn.hutool:hutool-all:5.3.10" level="project" />
