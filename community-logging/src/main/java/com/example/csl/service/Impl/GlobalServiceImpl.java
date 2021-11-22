@@ -7,6 +7,7 @@ import com.example.csl.mapper.GlobalMapper;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class GlobalServiceImpl implements GlobalService {
@@ -20,7 +21,14 @@ public class GlobalServiceImpl implements GlobalService {
 
     @Override
     public Global select() {
-        Global global =globalMapper.selectOne(null);
+        List<Global> globalList = (List<Global>) globalMapper.selectList(null);
+        Global global = globalList.get(globalList.size()-1);
         return global;
     }
+
+    @Override
+    public void delete() {
+        globalMapper.delete(null);
+    }
+
 }

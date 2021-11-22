@@ -9,9 +9,11 @@ import com.example.csl.service.AllService;
 import com.example.csl.service.CityService;
 import com.example.csl.service.GlobalService;
 import net.sf.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -31,7 +33,7 @@ public class EpidemicDataUtil {
     private GlobalService globalService;
 
     @Scheduled(cron = "0 0 1 * * ?")
-    public void getData() throws IOException {
+    public EpidemicData getData() throws IOException {
         EpidemicData epidemicData;
         String URI = "https://covid-api.mmediagroup.fr/v1/cases";
         Result result = ResponseUtil.Response(URI);
@@ -40,14 +42,20 @@ public class EpidemicDataUtil {
             JSONObject jsonobject = JSONObject.fromObject(content);
             epidemicData = EpidemicDataUtil.StrToArray(jsonobject);
 
+//            this.allService.update(epidemicData.getAllList());
             try {
-                allService.insert(epidemicData.getAllList());
-                cityService.insert(epidemicData.getCityList());
-                globalService.insert(epidemicData.getGlobal());
+
+//                allService.insert(epidemicData.getAllList());
+//                cityService.insert(epidemicData.getCityList());
+//                globalService.insert(epidemicData.getGlobal());
             }catch (Exception e){
                 e.printStackTrace();
 
             }
+            return epidemicData;
+        }else {
+            System.out.println(result);
+            return null;
         }
     }
 
@@ -75,7 +83,7 @@ public class EpidemicDataUtil {
                         continue;
                     }
 
-                    countryList.addAll(all(all,lists));
+                    countryList.addAll(all(all,lists,countryKey));
                 }else continue;
             }
 
@@ -94,7 +102,7 @@ public class EpidemicDataUtil {
                 City city = new City();
                 Map<String,Object> cityProperty = (Map<String, Object>) cityMap.get(cityKey);
                 Set<String> cityPropertyList = cityProperty.keySet();
-                city.setProvince(cityKey);
+                city.setName(cityKey);
                 for (String list : cityPropertyList){
                     Object item = cityProperty.get(list);
                     if (item==null) continue;
@@ -106,7 +114,7 @@ public class EpidemicDataUtil {
                             city.setMapLong(item.toString());
                             break;
                         case "confirmed" :
-                            city.setConfirmed(Long.parseLong(item.toString()));
+                            city.setValue(Long.parseLong(item.toString()));
                             break;
                         case "recovered" :
                             city.setRecovered(Long.parseLong(item.toString()));
@@ -151,18 +159,16 @@ public class EpidemicDataUtil {
         return globalData;
     }
 
-    private static ArrayList<All> all(Map<String, Object> all,Set<String> lists){
+    private static ArrayList<All> all(Map<String, Object> all,Set<String> lists,String countryKey){
         ArrayList<All> countryList = new ArrayList();
         All country = new All();
         for (String list:lists){
             Object item = all.get(list);
             if (item==null) continue;
+            country.setCountry(countryKey);
             switch (list){
                 case "continent" :
                     country.setContinent(item.toString());
-                    break;
-                case "country" :
-                    country.setCountry(item.toString());
                     break;
                 case "iso" :
                     if (item.toString().equals("{}")) country.setIso(null);

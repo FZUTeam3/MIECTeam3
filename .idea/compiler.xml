@@ -8,7 +8,6 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="community-forum" />
-        <module name="community-signin" />
         <module name="community-logging" />
         <module name="maganement-outgoing" />
       </profile>
