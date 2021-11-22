@@ -55,5 +55,19 @@ public class FsUserServiceImpl implements FsUserService {
 
     }
 
+    @Override
+    public FsUser findMessage(Long userId) {
+        return fsUserMapper.selectById(userId);
+    }
+
+    @Override
+    public void delete(Long userId) {
+        FsUser user = new FsUser();
+        user.setStatus(false);
+        UpdateWrapper<FsUser> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("user_id", userId);
+        fsUserMapper.update(user,updateWrapper);
+    }
+
 
 }

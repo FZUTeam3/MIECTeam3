@@ -9,13 +9,11 @@ import lombok.Data;
 @TableName(value = "map_city")
 public class City {
 
-    @TableId(type = IdType.AUTO)
-    private Long cityId;
-
-    private String Province;
+    @TableId
+    private String Name;
     private String Lat;
     private String MapLong;
-    private Long Confirmed;
+    private Long Value;
     private Long Recovered;
     private String Deaths;
     private String Updated;

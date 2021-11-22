@@ -25,4 +25,16 @@ public class CityServiceImpl implements CityService {
         ArrayList<City> cityList = (ArrayList<City>) cityMapper.selectList(null);
         return cityList;
     }
+
+    @Override
+    public void delete() {
+        cityMapper.delete(null);
+    }
+
+    @Override
+    public void update(ArrayList<City> cityArrayLists) {
+        for (City cityList:cityArrayLists){
+            cityMapper.updateById(cityList);
+        }
+    }
 }

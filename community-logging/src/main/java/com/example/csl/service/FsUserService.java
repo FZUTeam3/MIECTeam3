@@ -10,4 +10,6 @@ public interface FsUserService {
     Long findEmail(String email);
     Long loginUser(String phone,String password);
     void update(Long userId);
+    FsUser findMessage(Long userId);
+    void delete(Long userId);
 }

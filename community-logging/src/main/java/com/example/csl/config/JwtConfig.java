@@ -26,7 +26,7 @@ public class JwtConfig {
      */
     public String createToken (String userID){
         Date nowDate = new Date();
-        Date expireDate = new Date(nowDate.getTime() + expire * 1000);//1个小时
+        Date expireDate = new Date(nowDate.getTime() + expire * 1000*24*7);//1个小时*24*7=7天
 
         return Jwts.builder()
                 .setHeaderParam("typ", "JWT")

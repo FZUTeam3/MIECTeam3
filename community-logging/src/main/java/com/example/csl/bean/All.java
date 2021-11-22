@@ -14,12 +14,11 @@ import java.util.ArrayList;
 @TableName(value = "map_country")
 public class All implements Serializable{
 
-    @TableId(type = IdType.AUTO)
-    private Long countryId;
-
     private Long Confirmed;
     private Long Recovered;
     private Long Death;
+
+    @TableId
     private String Country;
     private Long Population;
     private Long SqKmArea;

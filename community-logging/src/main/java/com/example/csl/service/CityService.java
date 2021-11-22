@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public interface CityService {
 
     void insert(ArrayList<City> cityArrayLists);
-
     ArrayList<City> select();
+    void delete();
+    void update(ArrayList<City> cityArrayLists);
 }
