@@ -7,4 +7,6 @@ public interface ArticleThumbService {
     Result addThumb2Redis(int articleId);
 
     Result cancelThumb2Redis(int articleId);
+
+    Boolean queryIfThumbInRedis(int articleId,int UserId);
 }
