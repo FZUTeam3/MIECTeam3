@@ -1,8 +1,8 @@
-E:\2021TeamProject\FZUCommunity\backend\maganement-outgoing\src\main\java\com\example\wjy\pojo\OgInfo.java
-E:\2021TeamProject\FZUCommunity\backend\maganement-outgoing\src\main\java\com\example\wjy\service\impl\OgInfoServiceImpl.java
-E:\2021TeamProject\FZUCommunity\backend\maganement-outgoing\src\main\java\com\example\wjy\vo\params\OgInfoParams.java
-E:\2021TeamProject\FZUCommunity\backend\maganement-outgoing\src\main\java\com\example\wjy\mapper\OgInfoMapper.java
-E:\2021TeamProject\FZUCommunity\backend\maganement-outgoing\src\main\java\com\example\wjy\control\OutgoingController.java
-E:\2021TeamProject\FZUCommunity\backend\maganement-outgoing\src\main\java\com\example\wjy\service\OgInfoService.java
-E:\2021TeamProject\FZUCommunity\backend\maganement-outgoing\src\main\java\com\example\wjy\vo\params\ChangeParams.java
-E:\2021TeamProject\FZUCommunity\backend\maganement-outgoing\src\main\java\com\example\wjy\vo\Result.java
+E:\MIECTeam3\maganement-outgoing\src\main\java\com\example\wjy\mapper\OgInfoMapper.java
+E:\MIECTeam3\maganement-outgoing\src\main\java\com\example\wjy\service\impl\OgInfoServiceImpl.java
+E:\MIECTeam3\maganement-outgoing\src\main\java\com\example\wjy\service\OgInfoService.java
+E:\MIECTeam3\maganement-outgoing\src\main\java\com\example\wjy\vo\params\ChangeParams.java
+E:\MIECTeam3\maganement-outgoing\src\main\java\com\example\wjy\vo\Result.java
+E:\MIECTeam3\maganement-outgoing\src\main\java\com\example\wjy\control\OutgoingController.java
+E:\MIECTeam3\maganement-outgoing\src\main\java\com\example\wjy\pojo\OgInfo.java
+E:\MIECTeam3\maganement-outgoing\src\main\java\com\example\wjy\vo\params\OgInfoParams.java
