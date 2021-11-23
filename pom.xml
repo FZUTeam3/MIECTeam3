@@ -12,6 +12,7 @@
     <modules>
         <module>community-forum</module>
         <module>community-logging</module>
+        <module>community-signin</module>
         <module>maganement-outgoing</module>
     </modules>
 
@@ -37,11 +38,6 @@
                 <version>3.7</version>
             </dependency>
             <dependency>
-                <groupId>com.alibaba</groupId>
-                <artifactId>fastjson</artifactId>
-                <version>1.2.70</version>
-            </dependency>
-            <dependency>
                 <groupId>com.qiniu</groupId>
                 <artifactId>qiniu-java-sdk</artifactId>
                 <version>7.7.0</version>
@@ -50,6 +46,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>3.3.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>1.2.47</version>
             </dependency>
             <dependency>
                 <groupId>io.springfox</groupId>

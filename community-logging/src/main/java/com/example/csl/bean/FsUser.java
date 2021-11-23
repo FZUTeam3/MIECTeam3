@@ -29,7 +29,7 @@ public class FsUser {
     private String phoneNumber;
 
     @NotNull(message = "email can't be null")
-    @Email(message = "The Email format is error")
+    @Email(message = "The FsEmail format is error")
     private String email;
 
 
