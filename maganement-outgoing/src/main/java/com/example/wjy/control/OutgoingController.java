@@ -1,6 +1,7 @@
 package com.example.wjy.control;
 
 import com.example.wjy.pojo.OgInfo;
+import com.example.wjy.pojo.OgInfoVo;
 import com.example.wjy.service.OgInfoService;
 import com.example.wjy.vo.Result;
 import com.example.wjy.vo.params.ChangeParams;
@@ -31,8 +32,8 @@ public class OutgoingController {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String identityId = (String) request.getAttribute("identityId");
         int userId=Integer.parseInt(identityId);
-        List<OgInfo> ogInfos =ogInfoService.search(userId);
-        return Result.success(ogInfos);
+        List<OgInfoVo> ogInfoVos =ogInfoService.search(userId);
+        return Result.success(ogInfoVos);
     }
     @PostMapping("modification")
     public Result change(@RequestBody ChangeParams changeParams){

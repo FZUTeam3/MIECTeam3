@@ -1,8 +1,0 @@
-com\example\wjy\service\impl\OgInfoServiceImpl.class
-com\example\wjy\mapper\OgInfoMapper.class
-com\example\wjy\vo\params\ChangeParams.class
-com\example\wjy\control\OutgoingController.class
-com\example\wjy\service\OgInfoService.class
-com\example\wjy\vo\params\OgInfoParams.class
-com\example\wjy\pojo\OgInfo.class
-com\example\wjy\vo\Result.class
