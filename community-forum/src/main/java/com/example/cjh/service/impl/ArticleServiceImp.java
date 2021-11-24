@@ -13,6 +13,7 @@ import com.example.cjh.pojo.ArticleDetails;
 import com.example.cjh.pojo.ArticleReport;
 import com.example.cjh.pojo.ArticleThumb;
 import com.example.cjh.service.ArticleService;
+import com.example.cjh.service.ArticleThumbService;
 import com.example.cjh.vo.param.ReportParam;
 import com.example.cjh.vo.ArticleDetailsVo;
 import com.example.cjh.vo.ArticleVo;
@@ -45,6 +46,8 @@ public class ArticleServiceImp implements ArticleService {
     ArticleThumbMapper articleThumbMapper;
     @Autowired
     ArticleReportMapper articleReportMapper;
+    @Autowired
+    ArticleThumbService articleThumbService;
 
     @Override
     @Transactional
@@ -117,10 +120,15 @@ public class ArticleServiceImp implements ArticleService {
         QueryWrapper<ArticleThumb> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", article.getArticleId());
         queryWrapper.eq("user_id", lookId);
-        if (articleThumbMapper.selectCount(queryWrapper) == 1) {
-            articleVo.setIfIsThumb(true);
+        Boolean ifThubmb = articleThumbService.queryIfThumbInRedis(article.getArticleId(), lookId);;
+        if (ifThubmb == null) {
+            if (articleThumbMapper.selectCount(queryWrapper) == 1) {
+                articleVo.setIfIsThumb(true);
+            } else {
+                articleVo.setIfIsThumb(false);
+            }
         } else {
-            articleVo.setIfIsThumb(false);
+           articleVo.setIfIsThumb(ifThubmb);
         }
         return articleVo;
     }

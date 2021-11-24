@@ -26,12 +26,11 @@ public class ArticleThumbServiceImp implements ArticleThumbService {
     private RedisTemplate redisTemplate;
 
 
-
     @Override
     public Result addThumb2Redis(int articleId) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String identityId = (String) request.getAttribute("identityId");
-        int userId=Integer.parseInt(identityId);
+        int userId = Integer.parseInt(identityId);
         String key = ThumbUtils.getThumbKey(articleId, Math.toIntExact(userId));
         redisTemplate.opsForHash().put(ThumbUtils.Key_Thumb, key, ThumbStatusEnum.LIKE.getCode().toString());
         return Result.success("成功点赞");
@@ -42,10 +41,28 @@ public class ArticleThumbServiceImp implements ArticleThumbService {
     public Result cancelThumb2Redis(int articleId) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String identityId = (String) request.getAttribute("identityId");
-        int userId=Integer.parseInt(identityId);
+        int userId = Integer.parseInt(identityId);
         String key = ThumbUtils.getThumbKey(articleId, Math.toIntExact(userId));
-        redisTemplate.opsForHash().delete(ThumbUtils.Key_Thumb, key);
+//        redisTemplate.opsForHash().delete(ThumbUtils.Key_Thumb, key);
+        redisTemplate.opsForHash().put(ThumbUtils.Key_Thumb, key, ThumbStatusEnum.UNLIKE.getCode().toString());
         return Result.success("成功取消点赞");
+    }
+
+    @Override
+    public Boolean queryIfThumbInRedis(int articleId, int UserId) {
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String identityId = (String) request.getAttribute("identityId");
+        int userId = Integer.parseInt(identityId);
+        String key = ThumbUtils.getThumbKey(articleId, Math.toIntExact(userId));
+        Object obj = redisTemplate.opsForHash().get(ThumbUtils.Key_Thumb, key);
+        if (obj == null) {
+            return null;
+        } else {
+            if (obj.toString().equals("1")) {
+                System.out.println(obj.toString());
+                return true;
+            } else return false;
+        }
     }
 
 

@@ -3,7 +3,6 @@ com\example\cjh\service\ArticleThumbService.class
 com\example\cjh\vo\ArticleDetailsVo.class
 com\example\cjh\vo\param\PageParams.class
 com\example\cjh\vo\param\SearchParams.class
-com\example\cjh\config\CorsConfig$1.class
 com\example\cjh\controller\ArticleThumbController.class
 com\example\cjh\service\ArticleService.class
 com\example\cjh\config\SwaggerConfig.class
