@@ -14,7 +14,7 @@ public class ArticleReport {
     /** 被举报的文章id */
     private Integer articleId ;
     /** 举报人id */
-    private Integer user_id ;
+    private Integer userId ;
     /** 举报的原因*/
     private String reason;
 

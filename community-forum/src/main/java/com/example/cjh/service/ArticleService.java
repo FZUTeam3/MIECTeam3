@@ -24,4 +24,8 @@ public interface ArticleService {
     Result search(SearchParams searchParams,int lookID);
 
     Result report(ReportParam reportParam, int userId);
+
+    Result reportQuery();
+
+    Result reportDelete(int articleId);
 }
