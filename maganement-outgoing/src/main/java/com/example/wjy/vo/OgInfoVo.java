@@ -28,7 +28,7 @@ public class OgInfoVo {
     /** 外出原因 */
     private String reasonContent;
     /** 申请状态 */
-    private Integer status;
+    private String status;
 
 
 

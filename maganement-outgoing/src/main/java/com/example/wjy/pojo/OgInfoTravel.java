@@ -11,7 +11,7 @@ import java.util.Date;
 @Data
 @TableName("og_information_travel")
 public class OgInfoTravel {
-
+    @TableId(type = IdType.AUTO)
     private Integer travelAreaId;
 
     private String travelAreaInfo;

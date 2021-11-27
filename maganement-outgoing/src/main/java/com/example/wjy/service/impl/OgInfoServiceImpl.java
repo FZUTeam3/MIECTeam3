@@ -63,7 +63,13 @@ public class OgInfoServiceImpl implements OgInfoService {
             BeanUtils.copyProperties(ogInfo,ogInfoVo);
             ogInfoVo.setPassAreaInfo(ogInfoPass.getPassAreaInfo());
             ogInfoVo.setTravelAreaInfo(ogInfoTravel.getTravelAreaInfo());
-
+            if(ogInfo.getStatus()==0){
+                ogInfoVo.setStatus("待审核");
+            }else if(ogInfo.getStatus()==1){
+                ogInfoVo.setStatus("审核未通过");
+            }else if(ogInfo.getStatus()==2){
+                ogInfoVo.setStatus("审核通过");
+            }
             ogInfoVos.add(ogInfoVo);
         }
         return ogInfoVos;
