@@ -14,6 +14,7 @@ import com.example.cjh.pojo.ArticleReport;
 import com.example.cjh.pojo.ArticleThumb;
 import com.example.cjh.service.ArticleService;
 import com.example.cjh.service.ArticleThumbService;
+import com.example.cjh.vo.ArticleReportVo;
 import com.example.cjh.vo.param.ReportParam;
 import com.example.cjh.vo.ArticleDetailsVo;
 import com.example.cjh.vo.ArticleVo;
@@ -67,6 +68,7 @@ public class ArticleServiceImp implements ArticleService {
         ArticleDetails articleDetails = new ArticleDetails();
         articleDetails.setArticleId(article.getArticleId());
         articleDetails.setContentText(articleParams.getContentText());
+        articleDetails.setContentImages(articleParams.getContentImages());
         articleDetailsMapper.insert(articleDetails);
         return Result.success("成功发布");
     }
@@ -120,7 +122,8 @@ public class ArticleServiceImp implements ArticleService {
         QueryWrapper<ArticleThumb> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", article.getArticleId());
         queryWrapper.eq("user_id", lookId);
-        Boolean ifThubmb = articleThumbService.queryIfThumbInRedis(article.getArticleId(), lookId);;
+        Boolean ifThubmb = articleThumbService.queryIfThumbInRedis(article.getArticleId(), lookId);
+        ;
         if (ifThubmb == null) {
             if (articleThumbMapper.selectCount(queryWrapper) == 1) {
                 articleVo.setIfIsThumb(true);
@@ -128,7 +131,7 @@ public class ArticleServiceImp implements ArticleService {
                 articleVo.setIfIsThumb(false);
             }
         } else {
-           articleVo.setIfIsThumb(ifThubmb);
+            articleVo.setIfIsThumb(ifThubmb);
         }
         return articleVo;
     }
@@ -161,11 +164,41 @@ public class ArticleServiceImp implements ArticleService {
             return Result.fail(404, "你已经举报过此文章了");
         }
         ArticleReport articleReport = new ArticleReport();
-        articleReport.setUser_id(userId);
+        articleReport.setUserId(userId);
         articleReport.setArticleId(reportParam.getArticleId());
         articleReport.setReason(reportParam.getReason());
         articleReportMapper.insert(articleReport);
         return Result.success("举报成功");
+    }
+
+    @Override
+    public Result reportQuery() {
+        List<ArticleReport> articleReport = articleReportMapper.selectList(null);
+        if (articleReport.isEmpty()) {
+            return Result.fail(404, "No reported article now");
+        }
+        List<ArticleReportVo> articleReportVos = new ArrayList<>();
+        for (ArticleReport rpt : articleReport) {
+            ArticleReportVo avo = new ArticleReportVo();
+            avo.setArticleId(rpt.getArticleId());
+            avo.setSummary(articleMapper.selectById(rpt.getArticleId()).getSummary());
+            avo.setTitle(articleMapper.selectById(rpt.getArticleId()).getSummary());
+            avo.setReason(rpt.getReason());
+            avo.setReportUser(fsUserMapper.selectById(rpt.getUserId()).getNickname());
+            articleReportVos.add(avo);
+        }
+        return Result.success(articleReportVos);
+    }
+
+    @Override
+    public Result reportDelete(int articleId) {
+        QueryWrapper<ArticleReport> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("article_id",articleId);
+        int i = articleReportMapper.delete(queryWrapper);
+        if (i==0){
+            return Result.fail(404,"Fail to delete, maybe this article has been deleted");
+        }
+        return Result.success("Succeed to delete this article");
     }
 
 
