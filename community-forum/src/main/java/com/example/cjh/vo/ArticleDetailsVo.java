@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class ArticleDetailsVo {
     private String contentText;
-    private String contentImages;
+    private String[] contentImages;
 }
