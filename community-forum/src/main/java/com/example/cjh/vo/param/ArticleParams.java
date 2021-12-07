@@ -14,5 +14,5 @@ public class ArticleParams {
     /** 文章具体内容 */
     private String contentText;
     /** 文章附带的图片 */
-    private String contentImages;
+    private String[] contentImages;
 }

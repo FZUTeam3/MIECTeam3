@@ -1,7 +1,9 @@
 package com.example.cjh.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.cjh.mapper.ArticleDetailsMapper;
@@ -68,7 +70,7 @@ public class ArticleServiceImp implements ArticleService {
         ArticleDetails articleDetails = new ArticleDetails();
         articleDetails.setArticleId(article.getArticleId());
         articleDetails.setContentText(articleParams.getContentText());
-        articleDetails.setContentImages(articleParams.getContentImages());
+        articleDetails.setContentImages(JSON.toJSONString(articleParams.getContentImages()));
         articleDetailsMapper.insert(articleDetails);
         return Result.success("成功发布");
     }
@@ -86,13 +88,22 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public ArticleDetailsVo findDetailsByArticleId(int articleId) {
-        System.out.println("zoudaozh");
         QueryWrapper<ArticleDetails> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", articleId);
         queryWrapper.last("limit " + 1);
         ArticleDetails articleDetails = articleDetailsMapper.selectOne(queryWrapper);
+        //浏览+1
+        Integer articleId1 = articleDetails.getArticleId();
+        Article article = articleMapper.selectById(articleId1);
+        Integer viewsCount = article.getViewsCount();
+        UpdateWrapper<Article> updateWrapper = new UpdateWrapper<>();
+        updateWrapper.eq("article_id", articleId1);
+        article.setViewsCount(viewsCount + 1);
+        articleMapper.update(article, updateWrapper);
         ArticleDetailsVo articleDetailsVo = new ArticleDetailsVo();
         BeanUtils.copyProperties(articleDetails, articleDetailsVo);
+        String[] images = JSON.parseObject(articleDetails.getContentImages(), String[].class);
+        articleDetailsVo.setContentImages(images);
         return articleDetailsVo;
     }
 
@@ -192,11 +203,11 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public Result reportDelete(int articleId) {
-        QueryWrapper<ArticleReport> queryWrapper=new QueryWrapper<>();
-        queryWrapper.eq("article_id",articleId);
+        QueryWrapper<ArticleReport> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("article_id", articleId);
         int i = articleReportMapper.delete(queryWrapper);
-        if (i==0){
-            return Result.fail(404,"Fail to delete, maybe this article has been deleted");
+        if (i == 0) {
+            return Result.fail(404, "Fail to delete, maybe this article has been deleted");
         }
         return Result.success("Succeed to delete this article");
     }
