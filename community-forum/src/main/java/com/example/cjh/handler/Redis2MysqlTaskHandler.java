@@ -27,7 +27,7 @@ public class Redis2MysqlTaskHandler {
     @Autowired
     private ArticleMapper articleMapper;
 
-    @Scheduled(cron = "0 0/2 * * * ?")
+    @Scheduled(cron = "0/10 * * * * ?")
     public void redis2Mysql() {
 //        log.info("数据正在从redis转入mysql");
         Map<String, String> entries = redisTemplate.boundHashOps(ThumbUtils.Key_Thumb).entries();

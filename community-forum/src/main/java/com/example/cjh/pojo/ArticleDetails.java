@@ -15,6 +15,4 @@ public class ArticleDetails {
     private String contentText ;
     /** 文章id */
     private Integer articleId ;
-    /** 文章附带的图片 */
-    private String contentImages;
 }

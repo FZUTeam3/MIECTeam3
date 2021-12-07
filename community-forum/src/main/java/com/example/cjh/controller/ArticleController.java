@@ -76,16 +76,4 @@ public class ArticleController {
         return articleService.report(reportParam,userId);
     }
 
-    @ApiOperation(value = "查询哪些文章被举报了")
-    @GetMapping("manage/report/query")
-    public Result reportQuery(){
-        return articleService.reportQuery();
-    }
-
-    @ApiOperation(value = "删除违规文章")
-    @GetMapping("manage/report/delete/{articleId}")
-    public Result reportDelete(@PathVariable("articleId") int articleId){
-        return articleService.reportDelete(articleId);
-    }
-
 }

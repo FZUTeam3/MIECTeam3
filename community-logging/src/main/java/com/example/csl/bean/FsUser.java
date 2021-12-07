@@ -3,6 +3,7 @@ package com.example.csl.bean;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import javax.validation.constraints.Email;
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 
 
 @Data
+@TableName(value = "fs_user")
 public class FsUser {
 
     @TableId(type = IdType.AUTO)

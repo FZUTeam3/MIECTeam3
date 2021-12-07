@@ -34,6 +34,8 @@ public class CityServiceImpl implements CityService {
     @Override
     public void update(ArrayList<City> cityArrayLists) {
         for (City cityList:cityArrayLists){
+//            City oldCity = cityMapper.selectById(cityList.getName());
+//            cityList.setValue(cityList.getValue()-oldCity.getValue());
             cityMapper.updateById(cityList);
         }
     }

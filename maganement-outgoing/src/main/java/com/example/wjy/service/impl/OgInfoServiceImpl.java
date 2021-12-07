@@ -2,17 +2,11 @@ package com.example.wjy.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.wjy.mapper.OgInfoMapper;
-import com.example.wjy.mapper.OgInfoPassMapper;
-import com.example.wjy.mapper.OgInfoTravelMapper;
 import com.example.wjy.pojo.OgInfo;
-import com.example.wjy.pojo.OgInfoPass;
-import com.example.wjy.pojo.OgInfoTravel;
-import com.example.wjy.pojo.OgInfoVo;
 import com.example.wjy.service.OgInfoService;
 import com.example.wjy.vo.Result;
 import com.example.wjy.vo.params.ChangeParams;
 import com.example.wjy.vo.params.OgInfoParams;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,11 +17,6 @@ import java.util.List;
 public class OgInfoServiceImpl implements OgInfoService {
     @Autowired
     OgInfoMapper ogInfoMapper;
-    @Autowired
-    OgInfoPassMapper ogInfoPassMapper;
-    @Autowired
-    OgInfoTravelMapper ogInfoTravelMapper;
-
     @Override
     public Result apply(OgInfoParams ogInfoParams, int userId) {
         OgInfo ogInfo = new OgInfo();
@@ -43,36 +32,12 @@ public class OgInfoServiceImpl implements OgInfoService {
     }
 
     @Override
-    public List<OgInfoVo> search(int userId) {
+    public List<OgInfo> search(int userId) {
         QueryWrapper<OgInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("user_id",userId);
         List<OgInfo> ogInfos = new ArrayList<>();
         ogInfos = ogInfoMapper.selectList(queryWrapper);
-        List<OgInfoVo> ogInfoVos = new ArrayList<>();
-        for (OgInfo ogInfo:ogInfos){
-            OgInfoVo ogInfoVo = new OgInfoVo();
-
-            QueryWrapper<OgInfoPass> queryWrapper1 = new QueryWrapper<>();
-            queryWrapper1.eq("pass_area_id",ogInfo.getPassAreaId());
-            OgInfoPass ogInfoPass = ogInfoPassMapper.selectOne(queryWrapper1);
-
-            QueryWrapper<OgInfoTravel> queryWrapper2 = new QueryWrapper<>();
-            queryWrapper2.eq("travel_area_id",ogInfo.getTravelAreaId());
-            OgInfoTravel ogInfoTravel = ogInfoTravelMapper.selectOne(queryWrapper2);
-
-            BeanUtils.copyProperties(ogInfo,ogInfoVo);
-            ogInfoVo.setPassAreaInfo(ogInfoPass.getPassAreaInfo());
-            ogInfoVo.setTravelAreaInfo(ogInfoTravel.getTravelAreaInfo());
-            if(ogInfo.getStatus()==0){
-                ogInfoVo.setStatus("待审核");
-            }else if(ogInfo.getStatus()==1){
-                ogInfoVo.setStatus("审核未通过");
-            }else if(ogInfo.getStatus()==2){
-                ogInfoVo.setStatus("审核通过");
-            }
-            ogInfoVos.add(ogInfoVo);
-        }
-        return ogInfoVos;
+        return ogInfos;
     }
 
     @Override

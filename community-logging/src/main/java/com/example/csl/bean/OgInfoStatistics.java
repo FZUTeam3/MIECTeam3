@@ -1,4 +1,4 @@
-package com.example.wjy.pojo;
+package com.example.csl.bean;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,16 +9,17 @@ import lombok.Data;
 import java.util.Date;
 
 @Data
-public class OgInfoVo {
+@TableName("og_information")
+public class OgInfoStatistics {
 
     @TableId(type = IdType.AUTO)
     private Integer indexId;
     /** 用户 */
     private Integer userId;
     /** 所在区域 */
-    private String passAreaInfo;
+    private Integer passAreaId;
     /** 外出区域 */
-    private String travelAreaInfo;
+    private Integer travelAreaId;
     /** 起始时间 */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone="Asia/Shanghai")
     private Date startTime;
@@ -28,8 +29,9 @@ public class OgInfoVo {
     /** 外出原因 */
     private String reasonContent;
     /** 申请状态 */
-    private String status;
-
+    private Integer status;
+    /** 拒绝申请时的反馈 */
+    private String feedback;
 
 
 }
