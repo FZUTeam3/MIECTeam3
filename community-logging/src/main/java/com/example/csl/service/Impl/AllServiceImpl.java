@@ -1,5 +1,7 @@
 package com.example.csl.service.Impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.example.csl.bean.FsUser;
 import com.example.csl.service.AllService;
 import com.example.csl.bean.All;
 import com.example.csl.mapper.AllMapper;
@@ -36,6 +38,8 @@ public class AllServiceImpl implements AllService {
     @Override
     public void update(ArrayList<All> allArrayLists) {
         for (All all:allArrayLists){
+//            All oldAll = allMapper.selectById(all.getCountry());
+//            all.setConfirmed(all.getConfirmed()-oldAll.getConfirmed());
             allMapper.updateById(all);
         }
     }

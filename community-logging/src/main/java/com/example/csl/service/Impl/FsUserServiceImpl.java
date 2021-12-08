@@ -1,6 +1,7 @@
 package com.example.csl.service.Impl;
 
 import cn.hutool.crypto.SecureUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.example.csl.service.FsUserService;
 import com.example.csl.bean.FsUser;
@@ -9,6 +10,9 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class FsUserServiceImpl implements FsUserService {
@@ -67,6 +71,32 @@ public class FsUserServiceImpl implements FsUserService {
         UpdateWrapper<FsUser> updateWrapper = new UpdateWrapper<>();
         updateWrapper.eq("user_id", userId);
         fsUserMapper.update(user,updateWrapper);
+    }
+
+    @Override
+    public Integer statisticsOnline() {
+        QueryWrapper<FsUser> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("status",true);
+        Integer num = fsUserMapper.selectCount(queryWrapper);
+        return num;
+    }
+
+    @Override
+    public Map<LocalDate,Integer> statisticsLogin() {
+
+        LocalDate today = LocalDate.now();
+        Map<LocalDate,Integer> loginList = new HashMap<>();
+        for (int i=0;i<7;i++){
+            QueryWrapper<FsUser> queryWrapper = new QueryWrapper<>();
+            LocalDate start = today.minus(i, ChronoUnit.DAYS);
+            queryWrapper.eq("last_login",start);
+            Integer num = fsUserMapper.selectCount(queryWrapper);
+            loginList.put(start,num);
+        }
+
+
+
+        return loginList;
     }
 
 

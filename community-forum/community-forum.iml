@@ -21,12 +21,14 @@
       <sourceFolder url="file://$MODULE_DIR$/src/main/java" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src/main/resources" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/${project.build.directory}/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/${project.build.directory}/test-classes" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Maven: com.alibaba:fastjson:1.2.47" level="project" />
-    <orderEntry type="library" name="Maven: com.team3:community-signin:0.0.1-SNAPSHOT" level="project" />
+    <orderEntry type="module" module-name="community-signin" />
     <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-annotation:3.4.2" level="project" />
     <orderEntry type="library" name="Maven: cn.hutool:hutool-all:5.3.10" level="project" />
     <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-core:3.4.2" level="project" />

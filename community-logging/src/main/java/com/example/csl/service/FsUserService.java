@@ -4,6 +4,8 @@ package com.example.csl.service;
 import com.example.csl.bean.FsUser;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.Map;
 
 public interface FsUserService {
     void createUser(FsUser user) throws IOException;
@@ -12,4 +14,7 @@ public interface FsUserService {
     void update(Long userId);
     FsUser findMessage(Long userId);
     void delete(Long userId);
+    Integer statisticsOnline();
+    Map<LocalDate,Integer> statisticsLogin();
+
 }
