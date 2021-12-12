@@ -5,6 +5,7 @@ import cn.hutool.crypto.SecureUtil;
 
 import com.example.csl.bean.Token;
 import com.example.csl.dto.FsUserDto;
+import com.example.csl.service.Impl.FsUserServiceImpl;
 import com.example.csl.service.Impl.RedisServiceImpl;
 import com.example.csl.service.FsUserService;
 import com.example.csl.bean.FsUser;
@@ -80,16 +81,21 @@ public class FsUserController {
             return result;
         }
         if (userService.findEmail(user.getEmail()) != null) {
+            synchronized(FsUserServiceImpl.class){
+                if (userService.findEmail(user.getEmail()) != null){
             result.setStatus(0);
             result.setMessage("The email has been registered.");
             return result;
+            }
         }
-        userService.createUser(user);
+        }
+
         if (results.hasErrors()) {
             result.setStatus(0);
             result.setMessage(results.getFieldError().getDefaultMessage());
+            return result;
         }
-
+        userService.createUser(user);
         return result;
     }
 

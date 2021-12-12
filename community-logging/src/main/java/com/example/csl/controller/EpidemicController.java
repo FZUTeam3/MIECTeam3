@@ -43,13 +43,14 @@ public class EpidemicController {
     }
 
     @Scheduled(cron = "0 0 1 * * ?")
+    @GetMapping(value = "/user/update")
     public void Insert() throws IOException {
         EpidemicDataUtil epidemicDataUtil = new EpidemicDataUtil();
         EpidemicData epidemicData = epidemicDataUtil.getData();
         if (epidemicData!=null){
             allService.update(epidemicData.getAllList());
             cityService.update(epidemicData.getCityList());
-            globalService.insert(epidemicData.getGlobal());
+            //globalService.insert(epidemicData.getGlobal());
         }
 
     }
