@@ -24,39 +24,34 @@ public class StatisticsServiceImpl implements StatisticsService {
 
 
     @Override
-    public Map<Date, Integer> statisticsArticle() {
+    public ArrayList<Integer> statisticsArticle() {
         Long date = System.currentTimeMillis();
-        Map<Date,Integer> articleList = new HashMap<>();
+        ArrayList list = new ArrayList<Integer>();
         for (int i=0;i<7;i++){
             QueryWrapper<ArticleStatistics> queryWrapper = new QueryWrapper<>();
             Long start = date- 3600L *1000*24*i;
             Long end =start-3600*1000*24;
-            Date d = new Date(start);
             queryWrapper.between("create_date",end,start);
             Integer num = articleStatisticsMapper.selectCount(queryWrapper);
-            articleList.put(d,num);
+            list.add(num);
         }
-        return articleList;
+        return list;
     }
 
     @Override
-    public Map<LocalDate, Integer> statisticsOut() {
+    public ArrayList<Integer> statisticsOut() {
         LocalDate date = LocalDate.now();
 
-//        Calendar calendar = new GregorianCalendar();
-//        calendar.setTime(date);
-
-
-        Map<LocalDate,Integer> outList = new HashMap<>();
+        ArrayList list = new ArrayList<Integer>();
         for (int i=0;i<7;i++){
             QueryWrapper<OgInfoStatistics> queryWrapper = new QueryWrapper<>();
         LocalDate start = date.minus(i+1, ChronoUnit.DAYS);
         LocalDate end =date.minus(i,ChronoUnit.DAYS);
             queryWrapper.between("start_time",start,end);
             Integer num = ogInfoStatisticsMapper.selectCount(queryWrapper);
-            outList.put(start,num);
+            list.add(num);
         }
-        return outList;
+        return list;
     }
 
 

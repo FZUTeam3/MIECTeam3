@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -82,21 +83,22 @@ public class FsUserServiceImpl implements FsUserService {
     }
 
     @Override
-    public Map<LocalDate,Integer> statisticsLogin() {
+    public ArrayList<Integer> statisticsLogin() {
 
         LocalDate today = LocalDate.now();
         Map<LocalDate,Integer> loginList = new HashMap<>();
+        ArrayList list = new ArrayList<Integer>();
         for (int i=0;i<7;i++){
             QueryWrapper<FsUser> queryWrapper = new QueryWrapper<>();
             LocalDate start = today.minus(i, ChronoUnit.DAYS);
             queryWrapper.eq("last_login",start);
             Integer num = fsUserMapper.selectCount(queryWrapper);
-            loginList.put(start,num);
+            list.add(num);
         }
 
 
 
-        return loginList;
+        return list;
     }
 
 
