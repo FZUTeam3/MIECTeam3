@@ -5,6 +5,7 @@ import com.example.csl.bean.FsUser;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Map;
 
 public interface FsUserService {
@@ -15,6 +16,6 @@ public interface FsUserService {
     FsUser findMessage(Long userId);
     void delete(Long userId);
     Integer statisticsOnline();
-    Map<LocalDate,Integer> statisticsLogin();
+    ArrayList<Integer> statisticsLogin();
 
 }
