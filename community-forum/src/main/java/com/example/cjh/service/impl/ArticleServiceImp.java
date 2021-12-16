@@ -6,14 +6,8 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.cjh.mapper.ArticleDetailsMapper;
-import com.example.cjh.mapper.ArticleMapper;
-import com.example.cjh.mapper.ArticleReportMapper;
-import com.example.cjh.mapper.ArticleThumbMapper;
-import com.example.cjh.pojo.Article;
-import com.example.cjh.pojo.ArticleDetails;
-import com.example.cjh.pojo.ArticleReport;
-import com.example.cjh.pojo.ArticleThumb;
+import com.example.cjh.mapper.*;
+import com.example.cjh.pojo.*;
 import com.example.cjh.service.ArticleService;
 import com.example.cjh.service.ArticleThumbService;
 import com.example.cjh.vo.ArticleReportVo;
@@ -51,6 +45,8 @@ public class ArticleServiceImp implements ArticleService {
     ArticleReportMapper articleReportMapper;
     @Autowired
     ArticleThumbService articleThumbService;
+    @Autowired
+    CommentsMapper commentsMapper;
 
     @Override
     @Transactional
@@ -203,12 +199,29 @@ public class ArticleServiceImp implements ArticleService {
 
     @Override
     public Result reportDelete(int articleId) {
+        //删除举报表
         QueryWrapper<ArticleReport> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("article_id", articleId);
         int i = articleReportMapper.delete(queryWrapper);
         if (i == 0) {
             return Result.fail(404, "Fail to delete, maybe this article has been deleted");
         }
+        //删除文章梗概
+        QueryWrapper<Article> articleQueryWrapper = new QueryWrapper<>();
+        articleQueryWrapper.eq("article_id", articleId);
+        articleMapper.delete(articleQueryWrapper);
+        //删除详细内容
+        QueryWrapper<ArticleDetails> articleDetailsQueryWrapper = new QueryWrapper<>();
+        articleDetailsQueryWrapper.eq("article_id", articleId);
+        articleDetailsMapper.delete(articleDetailsQueryWrapper);
+        //删除相关点赞
+        QueryWrapper<ArticleThumb> articleThumbQueryWrapper = new QueryWrapper<>();
+        articleThumbQueryWrapper.eq("article_id", articleId);
+        articleThumbMapper.delete(articleThumbQueryWrapper);
+        //删除相关评论
+        QueryWrapper<Comments> commentsQueryWrapper = new QueryWrapper<>();
+        commentsQueryWrapper.eq("article_id", articleId);
+        commentsMapper.delete(commentsQueryWrapper);
         return Result.success("Succeed to delete this article");
     }
 
