@@ -1,6 +1,7 @@
 package com.example.csl.config;
 
 
+
 import com.example.csl.interceptor.TokenInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
