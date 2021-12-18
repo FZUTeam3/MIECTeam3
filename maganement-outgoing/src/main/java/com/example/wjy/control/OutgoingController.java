@@ -44,7 +44,7 @@ public class OutgoingController {
         return ogInfoService.change(changeParams,userId);
     }
     @PostMapping("delete")
-    public Result delete(@RequestParam DeleteParams deleteParams){
+    public Result delete(@RequestBody DeleteParams deleteParams){
         return ogInfoService.delete(deleteParams.getIndexId());
     }
 
