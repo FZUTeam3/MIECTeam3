@@ -36,7 +36,7 @@ public class AuditServiceImpl implements AuditService {
         ogInfo.setFeedback(auditParams.getFeedback());
         ogInfo.setStatus(auditParams.getStatus());
         ogInfoMapper.update(ogInfo,queryWrapper);
-        return Result.success("审核完成");
+        return Result.success("Audit completed");
 
     }
    @Override
@@ -58,11 +58,11 @@ public class AuditServiceImpl implements AuditService {
            ogInfoVo.setPassAreaInfo(ogInfoPass.getPassAreaInfo());
            ogInfoVo.setTravelAreaInfo(ogInfoTravel.getTravelAreaInfo());
            if(ogInfo.getStatus()==0){
-               ogInfoVo.setStatus("待审核");
+               ogInfoVo.setStatus("Audit pending");
            }else if(ogInfo.getStatus()==1){
-               ogInfoVo.setStatus("审核未通过");
+               ogInfoVo.setStatus("Audit failed");
            }else if(ogInfo.getStatus()==2){
-               ogInfoVo.setStatus("审核通过");
+               ogInfoVo.setStatus("Audit passed");
            }
            ogInfoVos.add(ogInfoVo);
        }
