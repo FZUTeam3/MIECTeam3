@@ -1,10 +1,11 @@
 package com.example.wjy.control;
 
-import com.example.wjy.pojo.OgInfo;
+
 import com.example.wjy.pojo.OgInfoVo;
 import com.example.wjy.service.OgInfoService;
 import com.example.wjy.vo.Result;
 import com.example.wjy.vo.params.ChangeParams;
+import com.example.wjy.vo.params.DeleteParams;
 import com.example.wjy.vo.params.OgInfoParams;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -43,8 +44,8 @@ public class OutgoingController {
         return ogInfoService.change(changeParams,userId);
     }
     @PostMapping("delete")
-    public Result delete(@RequestParam Integer indexId){
-        return ogInfoService.delete(indexId);
+    public Result delete(@RequestBody DeleteParams deleteParams){
+        return ogInfoService.delete(deleteParams.getIndexId());
     }
 
 }

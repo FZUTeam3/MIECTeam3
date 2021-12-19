@@ -39,7 +39,7 @@ public class OgInfoServiceImpl implements OgInfoService {
         ogInfo.setReasonContent(ogInfoParams.getReasonContent());
         ogInfo.setStatus(1);
         ogInfoMapper.insert(ogInfo);
-        return Result.success("申请成功");
+        return Result.success("Application approved");
     }
 
     @Override
@@ -64,11 +64,11 @@ public class OgInfoServiceImpl implements OgInfoService {
             ogInfoVo.setPassAreaInfo(ogInfoPass.getPassAreaInfo());
             ogInfoVo.setTravelAreaInfo(ogInfoTravel.getTravelAreaInfo());
             if(ogInfo.getStatus()==0){
-                ogInfoVo.setStatus("待审核");
+                ogInfoVo.setStatus("Audit pending");
             }else if(ogInfo.getStatus()==1){
-                ogInfoVo.setStatus("审核未通过");
+                ogInfoVo.setStatus("Audit failed");
             }else if(ogInfo.getStatus()==2){
-                ogInfoVo.setStatus("审核通过");
+                ogInfoVo.setStatus("Audit passed");
             }
             ogInfoVos.add(ogInfoVo);
         }
@@ -87,7 +87,7 @@ public class OgInfoServiceImpl implements OgInfoService {
         QueryWrapper<OgInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("index_id",changeParams.getIndexId());
         ogInfoMapper.update(ogInfo,queryWrapper);
-        return Result.success("修改成功");
+        return Result.success("Modify successfully");
     }
 
     @Override
@@ -95,7 +95,7 @@ public class OgInfoServiceImpl implements OgInfoService {
         QueryWrapper<OgInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("index_id",indexId);
         ogInfoMapper.delete(queryWrapper);
-        return Result.success("删除成功");
+        return Result.success("Deleted successfully");
     }
 
 }
