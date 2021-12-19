@@ -1,6 +1,6 @@
 package com.example.wjy.control;
 
-import com.example.wjy.pojo.OgInfo;
+
 import com.example.wjy.pojo.OgInfoVo;
 import com.example.wjy.service.OgInfoService;
 import com.example.wjy.vo.Result;
