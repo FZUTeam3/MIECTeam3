@@ -9,11 +9,9 @@ import com.example.csl.service.AllService;
 import com.example.csl.service.CityService;
 import com.example.csl.service.GlobalService;
 import net.sf.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.io.IOException;
@@ -114,10 +112,10 @@ public class EpidemicDataUtil {
                             city.setMapLong(item.toString());
                             break;
                         case "confirmed" :
-                            city.setValue(Long.parseLong(item.toString()));
+                            city.setConfirmed(Long.parseLong(item.toString()));
                             break;
                         case "recovered" :
-                            city.setRecovered(Long.parseLong(item.toString()));
+                            city.setValue(Long.parseLong(item.toString()));
                             break;
                         case "deaths" :
                             city.setDeaths(item.toString());

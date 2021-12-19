@@ -13,8 +13,8 @@ public class City {
     private String Name;
     private String Lat;
     private String MapLong;
+    private Long Confirmed;
     private Long Value;
-    private Long Recovered;
     private String Deaths;
     private String Updated;
 
