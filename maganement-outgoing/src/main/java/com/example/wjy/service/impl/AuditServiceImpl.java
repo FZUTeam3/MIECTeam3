@@ -33,7 +33,6 @@ public class AuditServiceImpl implements AuditService {
         QueryWrapper<OgInfo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("index_id",auditParams.getIndexId());
         OgInfo ogInfo = ogInfoMapper.selectOne(queryWrapper);
-        ogInfo.setFeedback(auditParams.getFeedback());
         ogInfo.setStatus(auditParams.getStatus());
         ogInfoMapper.update(ogInfo,queryWrapper);
         return Result.success("Audit completed");
@@ -57,10 +56,8 @@ public class AuditServiceImpl implements AuditService {
            BeanUtils.copyProperties(ogInfo,ogInfoVo);
            ogInfoVo.setPassAreaInfo(ogInfoPass.getPassAreaInfo());
            ogInfoVo.setTravelAreaInfo(ogInfoTravel.getTravelAreaInfo());
-           if(ogInfo.getStatus()==0){
+           if(ogInfo.getStatus()==1){
                ogInfoVo.setStatus("Audit pending");
-           }else if(ogInfo.getStatus()==1){
-               ogInfoVo.setStatus("Audit failed");
            }else if(ogInfo.getStatus()==2){
                ogInfoVo.setStatus("Audit passed");
            }

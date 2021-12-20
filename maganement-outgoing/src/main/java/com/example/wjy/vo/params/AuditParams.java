@@ -6,5 +6,5 @@ import lombok.Data;
 public class AuditParams {
     private Integer indexId;
     private Integer status;
-    private String feedback;
+
 }
