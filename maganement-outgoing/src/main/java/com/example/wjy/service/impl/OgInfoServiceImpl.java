@@ -37,6 +37,7 @@ public class OgInfoServiceImpl implements OgInfoService {
         ogInfo.setStartTime(ogInfoParams.getStartTime());
         ogInfo.setLastTime(ogInfoParams.getLastTime());
         ogInfo.setReasonContent(ogInfoParams.getReasonContent());
+        ogInfo.setFeedback("null");
         ogInfo.setStatus(1);
         ogInfoMapper.insert(ogInfo);
         return Result.success("Application approved");
@@ -63,11 +64,10 @@ public class OgInfoServiceImpl implements OgInfoService {
             BeanUtils.copyProperties(ogInfo,ogInfoVo);
             ogInfoVo.setPassAreaInfo(ogInfoPass.getPassAreaInfo());
             ogInfoVo.setTravelAreaInfo(ogInfoTravel.getTravelAreaInfo());
-            if(ogInfo.getStatus()==0){
+            if(ogInfo.getStatus()==1){
                 ogInfoVo.setStatus("Audit pending");
-            }else if(ogInfo.getStatus()==1){
-                ogInfoVo.setStatus("Audit failed");
-            }else if(ogInfo.getStatus()==2){
+            }
+            else if(ogInfo.getStatus()==2){
                 ogInfoVo.setStatus("Audit passed");
             }
             ogInfoVos.add(ogInfoVo);
