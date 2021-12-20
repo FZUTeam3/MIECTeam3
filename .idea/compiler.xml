@@ -9,6 +9,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="community-forum" />
         <module name="community-logging" />
+        <module name="community-signin" />
         <module name="maganement-outgoing" />
       </profile>
     </annotationProcessing>

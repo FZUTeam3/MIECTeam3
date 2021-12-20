@@ -12,7 +12,7 @@ public class JudgeIfIn {
     }
 
     public static boolean ifIn(String xy) throws Exception {
-        String url = "https://tsapi.amap.com/v1/track/geofence/status/location?key=bab9991b72bd44254771e44b111211fe&sid=482358&location=";
+        String url = "https://tsapi.amap.com/v1/track/geofence/status/location?key=2feceabe59e494ef9e07fe57e0bfaf1d&sid=404560&location=";
         url = url + xy;
         System.out.println(openGetRequest(url));
         String result = openGetRequest(url);
